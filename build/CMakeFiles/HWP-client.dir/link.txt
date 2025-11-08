@@ -1,0 +1,1 @@
+/usr/bin/g++ -g "CMakeFiles/HWP-client.dir/client.cpp.o" -o HWP-client 

@@ -1,0 +1,1 @@
+/usr/bin/g++ -g "CMakeFiles/HWP-.dir/select-server.cpp.o" "CMakeFiles/HWP-.dir/service.c.o" -o HWP- 

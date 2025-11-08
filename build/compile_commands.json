@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/build",
+  "command": "/usr/bin/g++  -I\"/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/.\" -g -std=gnu++20 -o CMakeFiles/HWP.dir/server.cpp.o -c \"/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/server.cpp\"",
+  "file": "/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/server.cpp",
+  "output": "CMakeFiles/HWP.dir/server.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/build",
+  "command": "/usr/bin/gcc  -I\"/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/.\" -g -std=gnu2x -o CMakeFiles/HWP.dir/WordCheck.c.o -c \"/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/WordCheck.c\"",
+  "file": "/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/WordCheck.c",
+  "output": "CMakeFiles/HWP.dir/WordCheck.c.o"
+},
+{
+  "directory": "/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/build",
+  "command": "/usr/bin/g++  -I\"/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/.\" -g -std=gnu++20 -o CMakeFiles/HWP-client.dir/client.cpp.o -c \"/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/client.cpp\"",
+  "file": "/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/client.cpp",
+  "output": "CMakeFiles/HWP-client.dir/client.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/build",
+  "command": "/usr/bin/g++  -I\"/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/.\" -g -std=gnu++20 -o CMakeFiles/HWP-select-server.dir/select-server.cpp.o -c \"/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/select-server.cpp\"",
+  "file": "/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/select-server.cpp",
+  "output": "CMakeFiles/HWP-select-server.dir/select-server.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/build",
+  "command": "/usr/bin/gcc  -I\"/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/.\" -g -std=gnu2x -o CMakeFiles/HWP-select-server.dir/service.c.o -c \"/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/service.c\"",
+  "file": "/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/service.c",
+  "output": "CMakeFiles/HWP-select-server.dir/service.c.o"
+}
+]

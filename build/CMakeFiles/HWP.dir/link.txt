@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/HWP.dir/server.cpp.o CMakeFiles/HWP.dir/WordCheck.c.o -o HWP 

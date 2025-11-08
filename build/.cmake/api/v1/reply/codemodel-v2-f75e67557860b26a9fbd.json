@@ -1,0 +1,78 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "HWP",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "HWP::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-HWP-Debug-94a7d3b71a2b15391702.json",
+					"name" : "HWP",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "HWP-client::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-HWP-client-Debug-775e95d596a5dc77226e.json",
+					"name" : "HWP-client",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "HWP-select-server::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-HWP-select-server-Debug-ecc5806ed76614c729f3.json",
+					"name" : "HWP-select-server",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/build",
+		"source" : "/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

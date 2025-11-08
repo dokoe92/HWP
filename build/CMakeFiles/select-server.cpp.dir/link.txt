@@ -1,0 +1,1 @@
+/usr/bin/gcc -g "CMakeFiles/select-server.cpp.dir/service.c.o" -o select-server.cpp 

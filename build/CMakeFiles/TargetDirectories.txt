@@ -1,0 +1,5 @@
+/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/build/CMakeFiles/HWP.dir
+/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/build/CMakeFiles/HWP-client.dir
+/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/build/CMakeFiles/HWP-select-server.dir
+/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/build/CMakeFiles/edit_cache.dir
+/mnt/c/Users/dokoe/Documents/Development/3. Semester/HWP/build/CMakeFiles/rebuild_cache.dir

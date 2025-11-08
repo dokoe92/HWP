@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.1)
+cmake_minimum_required(VERSION 3.20)
 project(HWP LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -12,3 +12,5 @@ add_executable(HWP
 )
 
 add_executable(HWP-client client.cpp)
+
+add_executable(HWP-select-server select-server.cpp service.c service.h)
