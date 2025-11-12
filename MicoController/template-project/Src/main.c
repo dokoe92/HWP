@@ -23,49 +23,82 @@
 #include "plib.h"
 #include "plib_config.h"
 
+#define DIGIT_0 0x3F
+#define DIGIT_1 0x06
+#define DIGIT_2 0x5B
+#define DIGIT_3 0x4F
+#define DIGIT_4 0x66
+#define DIGIT_5 0x6D
+#define DIGIT_6 0x7D
+#define DIGIT_7 0x07
+#define DIGIT_8 0x7F
+#define DIGIT_9 0x6F
+
+
 unsigned long int ticks = 0;
+
+#include <stdint.h>
+
+uint32_t calc_display(uint8_t hour, uint8_t minute) {
+	
+	const uint8_t digits[] = {DIGIT_0, DIGIT_1, DIGIT_2, DIGIT_3, DIGIT_4, DIGIT_5, DIGIT_6, DIGIT_7, DIGIT_8, DIGIT_9};
+
+	uint8_t minutes_one = 0;
+	uint8_t minutes_ten = 0;
+	uint8_t hours_one = 0;
+	uint8_t hours_ten = 0;
+
+	minutes_one = digits[minute % 10];
+	minutes_ten = digits[minute / 10];
+	hours_one = digits[hour % 10];
+	hours_ten = digits[hour / 10];
+
+	// blinking points
+	minutes_ten |= (1 << 7); 
+
+		
+
+	// 32 Bit = 4 Byte --> hours_ten shifted to Byte 3, hours_one shifted to Byte 2, ....
+	uint32_t displayTime = (hours_ten << 24) | (hours_one << 16) | (minutes_ten << 8) | minutes_one;
+
+	return displayTime;
+}
 
 int main(void)
 {
     pl_init();
-
-	int elapsed = 0;
 	pl_screen_set(1);
+
+
+	int seconds_elapsed = 0;
+	int minutes_elapsed = 0;
+	int hours_elapsed = 0;
 
 	while (1) {
 		pl_do();
-		// pl_board_led_set(1);
-		// // GPIOA->BSRR = (1 << 5); // Bit set reset register
-		// for (int i = 0; i < 1000000; i++) {
-		// 	__NOP();
-		// }
 
-		// pl_board_led_set(0);
-		// // GPIOA->BRR = (1 << 5); // Bit reset register
-		// for (int i = 0; i < 1000000; i++) {
-		// 	__NOP();
-		// }
+		int new_seconds_elapsed = ticks / PL_TICKS_PER_SECOND;
 
-		// int pressed = pl_board_button_get();
-		
-		// if (pressed) {
-		// 	double elapsed = (double) ticks / PL_TICKS_PER_SECOND;
-		// 	__NOP();
 
-		// }
-		// pl_board_led_set(pressed);
+		if (new_seconds_elapsed != seconds_elapsed) {
+			seconds_elapsed = new_seconds_elapsed;
 
-		int new_elapsed = ticks / PL_TICKS_PER_SECOND;
-		bool is_on = (new_elapsed % 2) == 0;
+			if (seconds_elapsed >= 60) {
+				seconds_elapsed = 0;
+				minutes_elapsed++;
+			}
+			if (minutes_elapsed >= 60) {
+				minutes_elapsed = 0;
+				hours_elapsed++;
+			}
+			if (hours_elapsed >= 24) {
+				hours_elapsed = 0;
+			}
 
-		if (new_elapsed != elapsed) {
-			elapsed = new_elapsed;
-			pl_log("1 second more elapsed");
+			uint32_t displayTime = calc_display(hours_elapsed, minutes_elapsed);
+
+			pl_alarmclock_display(displayTime);
 		}
-
-		pl_board_led_set(is_on);
-		pl_led_set(is_on);
-
 	}
 }
 

@@ -52,7 +52,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = C:\Users\dokoe\AppData\Local\stm32cube\bundles\cmake\4.0.1+st.3\bin\cmake.exe --regenerate-during-build -S"C:\Users\dokoe\Documents\Development\3. Semester\HWP\MicoController\template-project" -B"C:\Users\dokoe\Documents\Development\3. Semester\HWP\MicoController\template-project\build\Debug"
+  command = C:\Users\dokoe\AppData\Local\stm32cube\bundles\cmake\4.0.1+st.3\bin\cmake.exe --regenerate-during-build -SC:\Users\dokoe\Documents\Development\HWP\MicoController\template-project -BC:\Users\dokoe\Documents\Development\HWP\MicoController\template-project\build\Debug
   description = Re-running CMake...
   generator = 1
 

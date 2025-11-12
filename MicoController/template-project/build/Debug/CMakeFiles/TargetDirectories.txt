@@ -1,3 +1,3 @@
-C:/Users/dokoe/Documents/Development/3. Semester/HWP/MicoController/template-project/build/Debug/CMakeFiles/template.dir
-C:/Users/dokoe/Documents/Development/3. Semester/HWP/MicoController/template-project/build/Debug/CMakeFiles/edit_cache.dir
-C:/Users/dokoe/Documents/Development/3. Semester/HWP/MicoController/template-project/build/Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/dokoe/Documents/Development/HWP/MicoController/template-project/build/Debug/CMakeFiles/template.dir
+C:/Users/dokoe/Documents/Development/HWP/MicoController/template-project/build/Debug/CMakeFiles/edit_cache.dir
+C:/Users/dokoe/Documents/Development/HWP/MicoController/template-project/build/Debug/CMakeFiles/rebuild_cache.dir
