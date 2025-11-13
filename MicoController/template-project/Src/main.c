@@ -18,11 +18,13 @@
 
 #include <stdint.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include <stm32h533xx.h>
 #include "plib.h"
 #include "plib_config.h"
 
+// Combined Bits for the different digits
 #define DIGIT_0 0x3F
 #define DIGIT_1 0x06
 #define DIGIT_2 0x5B
@@ -34,12 +36,19 @@
 #define DIGIT_8 0x7F
 #define DIGIT_9 0x6F
 
+// pl_button_get takes uint8_t as param = 1 byte = 8 bit 
+#define SET_TIME_BTN (1 << 3) // Button "1"
+#define SET_ALARM_BTN (1 << 2) // Button "2"
+#define INCREMENT_HOUR_BTN (1 << 1) // Button "3"
+#define INCREMENT_MINUTE_BTN (1 << 0) // Button "4"
+
+
 
 unsigned long int ticks = 0;
 
 #include <stdint.h>
 
-uint32_t calc_display(uint8_t hour, uint8_t minute) {
+uint32_t calc_display(uint8_t hour, uint8_t minute, bool blink, bool alarm_on, bool beep_on) {
 	
 	const uint8_t digits[] = {DIGIT_0, DIGIT_1, DIGIT_2, DIGIT_3, DIGIT_4, DIGIT_5, DIGIT_6, DIGIT_7, DIGIT_8, DIGIT_9};
 
@@ -54,8 +63,16 @@ uint32_t calc_display(uint8_t hour, uint8_t minute) {
 	hours_ten = digits[hour / 10];
 
 	// blinking points
-	minutes_ten |= (1 << 7); 
-
+	
+	if (blink) {
+		minutes_ten |= (1 << 7);
+	}
+	if (beep_on) {
+		minutes_one |= (1 << 7);
+	}
+	if (alarm_on) {
+		hours_one |= (1 << 7);
+	}
 		
 
 	// 32 Bit = 4 Byte --> hours_ten shifted to Byte 3, hours_one shifted to Byte 2, ....
@@ -70,35 +87,97 @@ int main(void)
 	pl_screen_set(1);
 
 
-	int seconds_elapsed = 0;
-	int minutes_elapsed = 0;
-	int hours_elapsed = 0;
+	int elapsed = 0;
+
+	bool blink = false;
+
+	int display_seconds = 0;
+	int display_minutes = 0;
+	int display_hours = 0;
+
+	int alarm_hours = 0;
+	int alarm_minutes = 0;
+	bool alarm_on = false;
+
+	uint8_t old_button_pressed = 0;
 
 	while (1) {
 		pl_do();
 
-		int new_seconds_elapsed = ticks / PL_TICKS_PER_SECOND;
+		int new_elapsed = ticks / PL_TICKS_PER_SECOND;
 
 
-		if (new_seconds_elapsed != seconds_elapsed) {
-			seconds_elapsed = new_seconds_elapsed;
+		if (new_elapsed != elapsed) {
+			elapsed = new_elapsed;
 
-			if (seconds_elapsed >= 60) {
-				seconds_elapsed = 0;
-				minutes_elapsed++;
+			// Calculate actual time
+			display_seconds = elapsed;
+			if ((elapsed % 60) == 0) {
+				display_seconds = 0;
+				display_minutes++;
 			}
-			if (minutes_elapsed >= 60) {
-				minutes_elapsed = 0;
-				hours_elapsed++;
+			if (display_minutes >= 60) {
+				display_minutes = 0;
+				display_hours++;
 			}
-			if (hours_elapsed >= 24) {
-				hours_elapsed = 0;
+			if (display_hours >= 24) {
+				display_hours = 0;
 			}
-
-			uint32_t displayTime = calc_display(hours_elapsed, minutes_elapsed);
-
-			pl_alarmclock_display(displayTime);
 		}
+		// blinking separator between minutes and hours
+		blink = (display_seconds % 2) == 0;
+
+		// Set time logic
+		uint8_t buttons = 0;
+		pl_button_get(&buttons);
+
+
+		if (buttons & SET_TIME_BTN) {
+			if ((buttons & INCREMENT_HOUR_BTN) && !(old_button_pressed & INCREMENT_HOUR_BTN)) {
+				display_hours++;
+				if (display_hours >= 24) {
+					display_hours = 0;
+				}
+			}
+			if ((buttons & INCREMENT_MINUTE_BTN) && !(old_button_pressed & INCREMENT_MINUTE_BTN)) {
+				display_minutes++;
+				if (display_minutes >= 60) {
+					display_minutes = 0;
+				}
+			}
+		}
+
+		// Alarm logic
+		if (buttons & SET_ALARM_BTN) {
+			if ((buttons & INCREMENT_HOUR_BTN) && !(old_button_pressed & INCREMENT_HOUR_BTN)) {
+				alarm_hours++;
+				if (alarm_hours >= 24) {
+					alarm_hours = 0;
+				}
+			}
+				if ((buttons & INCREMENT_MINUTE_BTN) && !(old_button_pressed & INCREMENT_MINUTE_BTN)) {
+				alarm_minutes++;
+				if (alarm_minutes >= 60) {
+					alarm_minutes = 0;
+				}
+			}
+		}
+
+		// Otherwise buttons change variables too fast
+		old_button_pressed = buttons;
+
+		uint8_t switches = 0;
+        pl_switch_get(&switches);
+        alarm_on = switches & (1 << 7);
+
+		bool beep = alarm_on && (display_hours == alarm_hours) && (display_minutes == alarm_minutes);
+
+		uint32_t display = (buttons & SET_ALARM_BTN) ? calc_display(alarm_hours, alarm_minutes, true, alarm_on, beep)
+		: calc_display(display_hours, display_minutes, blink, alarm_on, beep);
+
+
+
+		pl_alarmclock_display(display);
 	}
 }
 
