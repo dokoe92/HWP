@@ -14,7 +14,7 @@ static int next_pending_connection(int server_sock) { // Funktion kann man von a
 }
 
 int main() {
-    signal(SIGCHLD, SIG_IGN);
+    signal(SIGCHLD, SIG_IGN); // beendete Kindprozesse werden automatisch aufgeräumt
 
     // ### #1 Socket Filedescriptor erzeugen
 
